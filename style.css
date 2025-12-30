@@ -420,3 +420,23 @@ h2 {
         opacity: 0.5;
     }
 }
+/* FORÇA VISIBILIDADE TOTAL - EMERGÊNCIA */
+* {
+  opacity: 1 !important;
+  visibility: visible !important;
+  transform: none !important;
+}
+
+/* MATA QUALQUER FADE */
+.fade,
+.fade * {
+  opacity: 1 !important;
+  visibility: visible !important;
+  transform: none !important;
+  transition: none !important;
+}
+
+/* GARANTE QUE O CONTEÚDO APARECE */
+body, main, section, div {
+  display: block !important;
+}
