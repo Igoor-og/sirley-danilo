@@ -2,7 +2,7 @@
 // VARIÁVEIS GLOBAIS
 // =========================================================
 // ALTERADO: Data alterada de 31 para 30 de Dezembro
-const targetDate = new Date("December 30, 2025 23:59:00").getTime();
+const targetDate = new Date("December 30, 2025 00:00:00").getTime();
 const lockScreen = document.querySelector(".lock-screen-countdown");
 const countdownTimeDisplay = document.getElementById("countdown-time");
 
