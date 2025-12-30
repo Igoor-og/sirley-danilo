@@ -1,19 +1,16 @@
 // =========================================================
-// CONFIGURAÇÕES
+// VARIÁVEIS GLOBAIS
 // =========================================================
 
-// Libera no INÍCIO do dia (00:00)
+// LIBERA NO COMEÇO DO DIA (00:00)
 const targetDate = new Date("December 30, 2025 00:00:00").getTime();
 
-// Dev mode via ?dev=true
-const urlParams = new URLSearchParams(window.location.search);
-const isDevMode = urlParams.get("dev") === "true";
-
-// Elementos
 const lockScreen = document.querySelector(".lock-screen-countdown");
 const countdownTimeDisplay = document.getElementById("countdown-time");
 
-// Intervalo
+const urlParams = new URLSearchParams(window.location.search);
+const isDevMode = urlParams.get("dev") === "true";
+
 let countdownInterval = null;
 
 // =========================================================
@@ -21,23 +18,30 @@ let countdownInterval = null;
 // =========================================================
 
 function updateCountdown() {
-  const now = Date.now();
+  const now = new Date().getTime();
   const distance = targetDate - now;
 
   if (distance <= 0) {
     clearInterval(countdownInterval);
 
     if (lockScreen) lockScreen.classList.add("hidden");
-    if (countdownTimeDisplay) countdownTimeDisplay.innerHTML = "É HOJE!";
+    if (countdownTimeDisplay)
+      countdownTimeDisplay.innerHTML = "É HOJE!";
 
     initializeSwiper();
     return;
   }
 
   const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-  const hours = Math.floor((distance / (1000 * 60 * 60)) % 24);
-  const minutes = Math.floor((distance / (1000 * 60)) % 60);
-  const seconds = Math.floor((distance / 1000) % 60);
+  const hours = Math.floor(
+    (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+  );
+  const minutes = Math.floor(
+    (distance % (1000 * 60 * 60)) / (1000 * 60)
+  );
+  const seconds = Math.floor(
+    (distance % (1000 * 60)) / 1000
+  );
 
   const pad = (n) => String(n).padStart(2, "0");
 
@@ -51,22 +55,22 @@ function updateCountdown() {
 }
 
 // =========================================================
-// SWIPER
+// SWIPER (IGUAL AO ORIGINAL)
 // =========================================================
 
 function initializeSwiper() {
-  const swiperContainer = document.querySelector(".mySwiper");
-  if (!swiperContainer || swiperContainer.swiper) return;
+  if (document.querySelector(".mySwiper")?.swiper) return;
 
   const carouselWrapper = document.getElementById("carousel-wrapper");
+  const totalPhotos = 8;
+
   if (!carouselWrapper) return;
 
-  const totalPhotos = 8;
   const fragment = document.createDocumentFragment();
 
   for (let i = 1; i <= totalPhotos; i++) {
     const slide = document.createElement("div");
-    slide.className = "swiper-slide";
+    slide.classList.add("swiper-slide");
 
     const img = document.createElement("img");
     img.src = `assets/photo${i}.jpeg`;
@@ -80,8 +84,8 @@ function initializeSwiper() {
 
   new Swiper(".mySwiper", {
     effect: "coverflow",
-    centeredSlides: true,
     grabCursor: true,
+    centeredSlides: true,
     loop: true,
     autoplay: {
       delay: 3500,
@@ -107,24 +111,21 @@ function initializeSwiper() {
 // =========================================================
 
 function initializeApp() {
-  // Tema salvo
   if (localStorage.getItem("theme") === "dark") {
     document.body.classList.add("theme-dark");
   }
 
-  // DEV MODE
   if (isDevMode) {
     if (lockScreen) lockScreen.classList.add("hidden");
     initializeSwiper();
     return;
   }
 
-  // NORMAL
   updateCountdown();
   countdownInterval = setInterval(updateCountdown, 1000);
 }
 
-window.addEventListener("load", initializeApp);
+window.onload = initializeApp;
 
 // =========================================================
 // TEMA
@@ -142,7 +143,7 @@ if (themeToggle) {
 }
 
 // =========================================================
-// ÁUDIO (libera no clique)
+// ÁUDIO
 // =========================================================
 
 document.addEventListener(
