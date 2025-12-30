@@ -339,11 +339,6 @@ h2 {
 }
 
 /* --- ANIMAÇÕES --- */
-.fade {
-  opacity: 1 !important;
-  transform: none !important;
-  transition: none !important;
-}
 
 .show {
     opacity: 1;
@@ -420,23 +415,31 @@ h2 {
         opacity: 0.5;
     }
 }
-/* FORÇA VISIBILIDADE TOTAL - EMERGÊNCIA */
-* {
-  opacity: 1 !important;
-  visibility: visible !important;
-  transform: none !important;
-}
-
-/* MATA QUALQUER FADE */
-.fade,
-.fade * {
+/* ===== DESATIVA FADE SEM QUEBRAR SWIPER ===== */
+.fade {
   opacity: 1 !important;
   visibility: visible !important;
   transform: none !important;
   transition: none !important;
 }
 
-/* GARANTE QUE O CONTEÚDO APARECE */
-body, main, section, div {
-  display: block !important;
+/* remove regras antigas que escondem tudo */
+.fade:not(.show) {
+  opacity: 1 !important;
+}
+
+/* ===== CORREÇÃO ESPECÍFICA DO SWIPER ===== */
+.swiper,
+.swiper-wrapper {
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+.swiper-wrapper {
+  display: flex !important;
+  transform: translate3d(0, 0, 0);
+}
+
+.swiper-slide {
+  opacity: 1 !important;
 }
