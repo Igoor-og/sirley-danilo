@@ -1,3 +1,10 @@
+.hidden {
+  display: none !important;
+}
+
+.lock-screen-countdown {
+  display: none;
+}
 /* --- VARIAVEIS GLOBAIS ESTILO IOS --- */
 :root {
     /* Cores de destaque (iOS Blue/Pink) */
