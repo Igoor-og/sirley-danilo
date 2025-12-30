@@ -1,4 +1,8 @@
-// =========================================================
+document.addEventListener("DOMContentLoaded", () => {
+  if (document.querySelector(".lock-screen-countdown")) {
+    document.querySelector(".lock-screen-countdown").style.display = "none";
+  }
+});// =========================================================
 // VARIÁVEIS GLOBAIS
 // =========================================================
 // ALTERADO: horário para 00:00
